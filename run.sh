@@ -49,6 +49,13 @@ if aws lambda get-function --function-name dynamodb-backup-lambda --profile ${PR
       --profile ${PROFILE} \
       --function-name dynamodb-backup-lambda \
       --zip-file fileb://dynamodb-backup-lambda.zip
+
+  echo -e "\nupdate environment variables with any changes\n"
+  aws lambda update-function-configuration \
+      --profile ${PROFILE} \
+      --function-name dynamodb-backup-lambda \
+      --environment "Variables={ddb_region=$DDBREGION,delete_after=$DELETEAFTER}"
+
 else
   echo -e "\nLambda deployment\n"
   # Lambda deployment
